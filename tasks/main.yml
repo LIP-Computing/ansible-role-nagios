@@ -2,8 +2,11 @@
 - include: nagios-centos7.yml
   when: ansible_distribution == "CentOS" and ansible_distribution_major_version == '7' and nagios_packages
 
-- include: nagios-packages.yml
-  when: ansible_distribution_major_version == '8' and nagios_packages
+- include: nagios-centos8.yml
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == '8' and nagios_packages
+
+- include: nagios-ubuntu.yml
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version == '20.04' and nagios_packages
 
 - include: nagios-source.yml
   when: not nagios_packages
