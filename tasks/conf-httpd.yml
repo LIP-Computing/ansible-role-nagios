@@ -1,0 +1,23 @@
+---
+# apache httpd configuration, partially based on https://github.com/geerlingguy/ansible-role-apache/
+- name: Ensure Apache has selected state and enabled on boot.
+  service:
+    name: httpd
+    state: started
+    enabled: true
+
+- name: Configure Apache.
+  lineinfile:
+    dest: "/etc/httpd/conf/httpd.conf"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+    mode: 0644
+  with_items: "{{ apache_ports_configuration_items }}"
+  notify: restart apache
+
+# - name: Check if localhost cert exists (RHEL 8 and later).
+#   stat:
+#     path: /etc/pki/tls/certs/localhost.crt
+#   register: localhost_cert
+#   when: ansible_distribution_major_version | int >= 8

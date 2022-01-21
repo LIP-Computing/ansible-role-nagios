@@ -1,0 +1,39 @@
+- name: Install LAMP stack
+  dnf:
+    name:
+      - epel-release
+      - bind-utils
+      - gcc
+      - gd
+      - gd-devel
+      - gettext
+      - glibc
+      - glibc-common
+      - httpd
+      - mailx
+      - mariadb-server
+      - perl
+      - php-fpm
+      - php-mysqlnd
+      - postfix
+      - python3-PyMySQL
+      - wget
+      - which
+      - unzip
+      - vim
+      - zip
+    state: present
+
+- name: update operating system
+  dnf:
+    name: '*'
+    state: latest
+
+- name: Install passlib
+  dnf:
+    name:
+      - openssl-devel
+      - openssl-libs
+      - python3-passlib
+    state: present
+  

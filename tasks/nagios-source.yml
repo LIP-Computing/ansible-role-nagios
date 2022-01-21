@@ -1,0 +1,7 @@
+---
+- include: centos.yml
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version|int >= 8
+
+- include: conf-httpd.yml
+- include: conf-mysql.yml
+- include: nagios.yml

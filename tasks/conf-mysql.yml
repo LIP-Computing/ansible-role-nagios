@@ -1,0 +1,37 @@
+---
+# mysql/mariadb configuration
+- name: Ensure MySQL is started and enabled on boot.
+  service:
+    name: mariadb
+    state: started
+    enabled: true
+  register: mysql_service_configuration
+
+- name: root password is present
+  mysql_user:
+    name: 'root'
+    host_all: true
+    password: '{{ mysql_root_password | mandatory }}'
+    state: present
+  when: mysql_root_password_update
+
+- name: install .my.cnf with credentials
+  template:
+    src: 'my.cnf.j2'
+    dest: '{{ mysql_user_home }}/.my.cnf'
+    mode: '0400'
+  tags: my_cnf
+  notify: restart mysql
+
+- name: test database is absent
+  mysql_db:
+    name: test
+    state: absent
+  when: mysql_remove_test_database
+
+- name: anonymous users are absent
+  mysql_user:
+    name: ''
+    state: absent
+    host_all: true
+  when: mysql_remove_anonymous_users

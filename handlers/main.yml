@@ -1,0 +1,17 @@
+---
+- name: restart apache
+  service:
+    name: httpd
+    state: restarted
+
+- name: restart mysql
+  service: 
+    name: mariadb
+    state: restarted
+    sleep: 5
+
+- name: restart nagios
+  service:
+    name: nagios
+    state: restarted
+  

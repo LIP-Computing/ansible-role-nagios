@@ -1,0 +1,54 @@
+- name: Install epel-release
+  yum:
+    name:
+      - epel-release
+
+- name: update operating system
+  yum:
+    name: '*'
+    state: latest
+
+- name: Install apache, nagios-core, nagios-plugins
+  yum:
+    name:
+      - bind-utils
+      - gettext
+      - glibc
+      - glibc-common
+      - httpd
+      - mailx
+      - mod_ssl
+      - nagios
+      - nagios-common
+      - nagios-contrib
+      - nagios-plugins
+      - nagios-plugins-*
+      - nmap
+      - openssl-libs
+      - postfix
+      - python2-passlib
+      - wget
+      - which
+      - unzip
+      - vim
+      - zip
+    state: present
+    enablerepo: 'epel'
+
+- include: conf-httpd.yml
+
+- name: set http nagiosadmin pass
+  community.general.htpasswd:
+    path: '/etc/nagios/passwd'
+    name: '{{ nagios_adminuser }}'
+    password: '{{ nagios_adminpass }}'
+    owner: root
+    group: apache
+    mode: 0640
+    crypt_scheme: md5_crypt
+
+- name: Ensure nagios has selected state and enabled on boot.
+  service:
+    name: nagios
+    state: started
+    enabled: true

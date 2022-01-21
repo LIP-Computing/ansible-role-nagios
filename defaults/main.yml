@@ -1,0 +1,26 @@
+---
+# Weather to install nagios from packages or from sources
+nagios_packages: true
+
+# Apache/httpd variables
+apache_listen_port: 80
+apache_listen_ip: 0.0.0.0
+apache_ports_configuration_items:
+  - regexp: '^Listen '
+    line: 'Listen {{ apache_listen_port }}'
+  - regexp: '^#?NameVirtualHost '
+    line: 'NameVirtualHost {{ apache_listen_ip }}:{{ apache_listen_port }}'
+
+# mysql mariadb variables
+#mysql_root_password: 'Changeme'
+mysql_user_home: '{{ ansible_env.HOME}}'
+mysql_remove_anonymous_users: true
+mysql_remove_test_database: true
+mysql_root_password_update: false
+
+# nagios core variables
+nagios_version: '4.4.6'
+plugins_version: '2.3.3'
+nrpe_version: '4.0.3'
+nagios_adminuser: 'nagiosadmin'
+#nagios_adminpass: 'Changeme'

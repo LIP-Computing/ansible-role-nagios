@@ -1,0 +1,80 @@
+---
+# nagios configuration installation
+- name: wget nagios-core
+  unarchive:
+    src: 'https://github.com/NagiosEnterprises/nagioscore/archive/nagios-{{ nagios_version }}.tar.gz'
+    dest: '/tmp'
+    remote_src: yes
+
+- name: wget nagios plugins
+  unarchive:
+    src: 'https://github.com/nagios-plugins/nagios-plugins/releases/download/release-{{ plugins_version }}/nagios-plugins-{{ plugins_version }}.tar.gz'
+    dest: '/tmp'
+    remote_src: yes
+
+- name: wget nrpe
+  unarchive:
+    src: 'https://github.com/NagiosEnterprises/nrpe/releases/download/nrpe-{{ nrpe_version }}/nrpe-{{ nrpe_version }}.tar.gz'
+    dest: '/tmp'
+    remote_src: yes
+
+- name: compile nagios core
+  shell: '{{ item }}'
+  args:
+    chdir: '/tmp/nagioscore-nagios-{{ nagios_version }}'
+  with_items:
+    - './configure'
+    - 'make all'
+    - 'make install-groups-users'
+    - 'usermod -a -G nagios apache'
+    - 'make install'
+    - 'make install-daemoninit'
+    - 'make install-commandmode'
+    - 'make install-config'
+    - 'make install-webconf'
+  notify: restart apache
+
+- name: compile nagios plugins
+  shell: '{{ item }}'
+  args:
+    chdir: '/tmp/nagios-plugins-{{ plugins_version }}'
+  with_items:
+    - './configure'
+    - 'make'
+    - 'make install'
+  notify: restart apache
+
+- name: compile nrpe
+  shell: '{{ item }}'
+  args:
+    chdir: '/tmp/nrpe-{{ nrpe_version }}'
+  with_items:
+    - './configure'
+    - 'make all'
+    - 'make install'
+  notify: restart apache
+
+- name: set http nagiosadmin pass
+  community.general.htpasswd:
+    path: '/usr/local/nagios/etc/htpasswd.users'
+    name: '{{ nagios_adminuser }}'
+    password: '{{ nagios_adminpass }}'
+    owner: root
+    group: apache
+    mode: 0640
+    crypt_scheme: md5_crypt
+
+- name: wget nagios vautour_style
+  unarchive:
+    src: 'https://github.com/ynlamy/vautour-style/releases/download/v1.7/vautour_style.zip'
+    dest: '/usr/local/nagios/share'
+    remote_src: yes
+    group: 'nagios'
+    owner: 'nagios'
+  notify: restart apache
+
+- name: Ensure nagios has selected state and enabled on boot.
+  service:
+    name: nagios
+    state: started
+    enabled: true
