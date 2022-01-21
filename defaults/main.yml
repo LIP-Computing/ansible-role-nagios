@@ -1,7 +1,4 @@
 ---
-# Weather to install nagios from packages or from sources
-nagios_packages: true
-
 # Apache/httpd variables
 apache_listen_port: 80
 apache_listen_ip: 0.0.0.0
@@ -19,9 +16,13 @@ mysql_remove_test_database: true
 mysql_root_password_update: false
 
 # nagios core variables
-nagios_version: '4.4.6'
-plugins_version: '2.3.3'
-nrpe_version: '4.0.3'
+# Weather to install nagios from packages or from sources
+nagios_packages: true
 nagios_adminuser: 'nagiosadmin'
-#nagios_adminpass: 'Changeme'
 nagios_timezone: 'Europe/Lisbon'
+#nagios_adminpass: 'Changeme'
+
+# Needed if installing from source tarball
+#nagios_version: '4.4.6'
+#plugins_version: '2.3.3'
+#nrpe_version: '4.0.3'
