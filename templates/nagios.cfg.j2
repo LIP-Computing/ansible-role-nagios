@@ -1,7 +1,7 @@
 log_file=/var/log/nagios4/nagios.log
 
 {% for obj_files in nagios_object_files %}
-cfg_file={{ nagios_object_dir }}/{{ obj_files }}
+cfg_file={{ nagios_object_dir }}/{{ obj_files.obj_file }}
 {% endfor %}
 
 object_cache_file=/var/lib/nagios4/objects.cache
