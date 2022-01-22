@@ -22,7 +22,7 @@ nagios_adminuser: 'nagiosadmin'
 nagios_timezone: 'Europe/Lisbon'
 nagios_adminpass: 'Changeme'
 nagios_obj_src_dir: ''
-nagios_object_dir: '/etc/nagios4/objects'
+nagios_object_dir: '/etc/nagios4/objects/'
 nagios_object_files:
   - obj_file: 'commands.cfg'
   - obj_file: 'contacts.cfg'
