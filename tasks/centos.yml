@@ -36,4 +36,3 @@
       - openssl-libs
       - python3-passlib
     state: present
-  

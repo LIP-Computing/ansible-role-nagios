@@ -39,7 +39,7 @@
     src: 'nagios.cfg.j2'
     dest: '/etc/nagios4/nagios.cfg'
 
-- name copy nagios file objects
+- name: copy nagios file objects
   copy:
     src: '{{ item }}'
     dest: '{{ nagios_object_dir }}/{{ item }}'
