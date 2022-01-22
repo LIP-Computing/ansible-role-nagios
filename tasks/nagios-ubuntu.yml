@@ -21,7 +21,7 @@
   tags:
     - install
 
-## ensure nagios user
+## nagios configuration
 - name: set shell for user nagios
   user:
     name: nagios
@@ -33,6 +33,11 @@
     ssh_key_file: .ssh/id_rsa
     create_home: yes
     state: present
+
+- name: copy nagios.cfg template
+  template:
+    src: 'nagios.cfg.j2'
+    dest: '/etc/nagios4/nagios.cfg'
 
 ## apache2 configuration
 - name: copy apache2.conf nagios config
