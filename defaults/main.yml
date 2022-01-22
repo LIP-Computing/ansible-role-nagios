@@ -21,6 +21,17 @@ nagios_packages: true
 nagios_adminuser: 'nagiosadmin'
 nagios_timezone: 'Europe/Lisbon'
 nagios_adminpass: 'Changeme'
+nagios_obj_src_dir: ''
+nagios_object_dir: '/etc/nagios4/objects'
+nagios_object_files:
+  - obj_file: 'commands.cfg'
+  - obj_file: 'contacts.cfg'
+  - obj_file: 'templates.cfg'
+  - obj_file: 'timeperiods.cfg'
+  - obj_file: 'servicegroups.cfg'
+  - obj_file: 'hostgroups.cfg'
+  - obj_file: 'services.cfg'
+  - obj_file: 'hosts.cfg'
 
 # Needed if installing from source tarball
 #nagios_version: '4.4.6'

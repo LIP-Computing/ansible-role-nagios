@@ -1,11 +1,8 @@
 log_file=/var/log/nagios4/nagios.log
 
-cfg_dir=/etc/nagios4/conf.d
-cfg_file=/etc/nagios4/objects/commands.cfg
-cfg_file=/etc/nagios4/objects/contacts.cfg
-cfg_file=/etc/nagios4/objects/timeperiods.cfg
-cfg_file=/etc/nagios4/objects/templates.cfg
-cfg_file=/etc/nagios4/objects/localhost.cfg
+{% for obj_files in nagios_object_files %}
+cfg_file={{ nagios_object_dir }}/{{ obj_files }}
+{% endfor %}
 
 object_cache_file=/var/lib/nagios4/objects.cache
 precached_object_file=/var/lib/nagios4/objects.precache
