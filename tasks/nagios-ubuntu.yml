@@ -36,7 +36,12 @@
 - name: copy nagios.cfg template
   template:
     src: 'nagios.cfg.j2'
-    dest: '/etc/nagios4/nagios.cfg'
+    dest: '{{ nagios_dir }}nagios.cfg'
+
+- name: copy nagios resource.cfg file
+  copy:
+    src: '{{ nagios_src_dir }}resource.cfg'
+    dest: '{{ nagios_dir }}resource.cfg'
 
 - name: copy nagios file objects
   copy:
