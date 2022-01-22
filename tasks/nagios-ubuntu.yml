@@ -64,7 +64,7 @@
     - auth_digest
     - rewrite
     - cgi
-  notify: nagios apache2 restart
+  notify: nagios4 apache2 restart
   ignore_errors: "{{ ansible_check_mode }}"
 
 - name: set apache nagiosadmin pass
@@ -79,6 +79,6 @@
 
 - name: Ensure nagios has selected state and enabled on boot.
   service:
-    name: nagios
+    name: nagios4
     state: started
     enabled: true
