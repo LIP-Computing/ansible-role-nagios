@@ -18,7 +18,23 @@
       - vim
       - zip
     state: present
+  tags:
+    - install
 
+## ensure nagios user
+- name: set shell for user nagios
+  user:
+    name: nagios
+    group: nagios
+    shell: '/bin/bash'
+    home: '/var/lib/nagios'
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa
+    create_home: yes
+    state: present
+
+## apache2 configuration
 - name: copy apache2.conf nagios config
   copy:
     src: 'apache2-nagios.conf'
