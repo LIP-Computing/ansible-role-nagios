@@ -45,7 +45,7 @@
 
 - name: copy nagios file objects
   copy:
-    src: '{{ nagios_obj_src_dir }}{{ item.obj_file }}'
+    src: '{{ nagios_src_dir }}{{ item.obj_file }}'
     dest: '{{ nagios_object_dir }}{{ item.obj_file }}'
   loop: '{{ nagios_object_files }}'
 
