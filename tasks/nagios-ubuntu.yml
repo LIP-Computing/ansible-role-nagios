@@ -52,13 +52,13 @@
 ## apache2 configuration
 - name: copy apache2.conf nagios config
   copy:
-    src: 'apache2-nagios.conf'
-    dest: '/etc/nagios4/apache2.conf'
+    src: '{{ nagios_src_dir }}apache2-nagios.conf'
+    dest: '{{ nagios_dir }}apache2.conf'
 
 - name: copy nagios.cfg template
   template:
     src: 'nagios.cfg.j2'
-    dest: '/etc/nagios4/nagios.cfg'
+    dest: '{{ nagios_dir }}nagios.cfg'
 
 - name: enable modules in apache
   apache2_module:
@@ -77,7 +77,7 @@
     path: '/etc/nagios4/htdigest.users'
     name: '{{ nagios_adminuser }}'
     password: '{{ nagios_adminpass }}'
-    owner: nagios
+    owner: root
     group: www-data
     mode: 0640
     crypt_scheme: md5_crypt
