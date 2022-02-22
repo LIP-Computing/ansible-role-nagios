@@ -10,6 +10,7 @@
       - nagios4-cgi
       - nagios4-common
       - nagios4-core
+      - net-tools
       - nmap
       - python3-passlib
       - wget
