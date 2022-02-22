@@ -56,6 +56,11 @@
     src: '{{ nagios_src_dir }}apache2-nagios.conf'
     dest: '{{ nagios_dir }}apache2.conf'
 
+- name: copy default-ssl.conf
+  copy:
+    src: '{{ nagios_src_dir }}default-ssl.conf'
+    dest: '{/etc/apache2/sites-available/default-ssl.conf'
+
 - name: copy nagios.cfg template
   template:
     src: 'nagios.cfg.j2'
@@ -69,6 +74,7 @@
     - authz_groupfile
     - auth_digest
     - rewrite
+    - ssl
     - cgi
   ignore_errors: "{{ ansible_check_mode }}"
 
