@@ -70,7 +70,6 @@
     - auth_digest
     - rewrite
     - cgi
-  notify: nagios4 apache2 restart
   ignore_errors: "{{ ansible_check_mode }}"
 
 - name: set apache nagiosadmin pass
