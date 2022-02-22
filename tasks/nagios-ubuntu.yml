@@ -59,7 +59,7 @@
 - name: copy default-ssl.conf
   copy:
     src: '{{ nagios_src_dir }}default-ssl.conf'
-    dest: '{/etc/apache2/sites-available/default-ssl.conf'
+    dest: '/etc/apache2/sites-available/default-ssl.conf'
 
 - name: copy nagios.cfg template
   template:
